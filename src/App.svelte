@@ -14,7 +14,7 @@
   </p>
 </main>
 <div class="bg-cosmos">
-  <Sky />
+  <Sky width={window.innerWidth} minHeight={window.innerHeight} />
   <Planet />
 </div>
 
@@ -25,7 +25,6 @@
     max-width: 240px;
     margin: 0 auto;
     width: 100%;
-    height: 2000px;
     overflow: hidden;
 
     h1 {
@@ -40,7 +39,6 @@
     }
   }
   .bg-cosmos {
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;

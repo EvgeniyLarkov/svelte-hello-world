@@ -1,14 +1,24 @@
-function drawCosmos(ctx: CanvasRenderingContext2D, vw: number, vh: number): void {
-    const cosmosPalette = {
-        "deep-dark": "#181923",
-        "deep-light": "#5f575d",
-    };
+import { getCosmosColor } from "./canvas-options";
 
-    const gradient = ctx.createRadialGradient(vw/2, vh/2, 0, vw/2, vh/2, vh-100);
-    gradient.addColorStop(0, cosmosPalette["deep-light"]);
-    gradient.addColorStop(0.7, cosmosPalette["deep-dark"]);
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, vw, vh);
+function drawCosmos(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  xCenter: number,
+  yCenter: number
+): void {
+  const gradient = ctx.createRadialGradient(
+    xCenter,
+    yCenter,
+    0,
+    xCenter,
+    yCenter,
+    h - 150
+  );
+  gradient.addColorStop(0, getCosmosColor("deep-light"));
+  gradient.addColorStop(0.7, getCosmosColor("deep-dark"));
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, w, h);
 }
 
 export default drawCosmos;

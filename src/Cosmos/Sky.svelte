@@ -1,56 +1,28 @@
 <script lang="ts">
   import { onMount } from "svelte";
+import drawAtmosphere from "./canvas-atmosphere";
   import drawCosmos from "./canvas-background";
+  import { stars } from "./canvas-options";
   import drawStar from "./canvas-stars";
-  const stars = [
-    {
-      name: "small",
-      total: 5000,
-      maxSize: 2,
-      brightChance: 0.5,
-      schemes: [
-        { value: "white-white", chance: 1 },
-        { value: "white-blue", chance: 0.1 },
-      ],
-    },
-    {
-      name: "medium",
-      total: 100,
-      maxSize: 5,
-      brightChance: 0.7,
-      schemes: [
-        { value: "white-blue", chance: 1 },
-        { value: "yellow-red", chance: 0.5 },
-      ],
-    },
-    {
-      name: "large",
-      total: 10,
-      maxSize: 8,
-      brightChance: 0.9,
-      schemes: [
-        { value: "white-blue", chance: 1 },
-        { value: "yellow-blue", chance: 0.2 },
-      ],
-    },
-  ];
 
   let background: HTMLCanvasElement;
   let forefront: HTMLCanvasElement;
   let secondfront: HTMLCanvasElement;
   let thirdfront: HTMLCanvasElement;
+  let atmosphere: HTMLCanvasElement;
 
-  const vw = {
-    width: window.innerWidth,
-    height: window.window.innerHeight,
-  };
+  export let width: number;
+  export let minHeight: number;
 
-  const handleParallax = ():void => {
+  const atmosphereHeight = 200;
+  const height = minHeight + atmosphereHeight;
+
+  const handleParallax = (): void => {
     const position = window.pageYOffset;
-    forefront.style.top = `-${position*0.6}px`;
-    secondfront.style.top = `-${position*0.4}px`;
-    thirdfront.style.top = `-${position*0.2}px`;
-  }
+    forefront.style.top = `-${position * 0.6}px`;
+    secondfront.style.top = `-${position * 0.4}px`;
+    thirdfront.style.top = `-${position * 0.2}px`;
+  };
 
   function getRndmNum(from: number, to: number) {
     const rand = from + Math.random() * (to + 1 - from);
@@ -62,12 +34,14 @@
     const ctxForefront = forefront.getContext("2d");
     const ctxSecondfront = secondfront.getContext("2d");
     const ctxThirdfront = thirdfront.getContext("2d");
+    const ctxAtmosphere = atmosphere.getContext("2d");
 
     let frame = requestAnimationFrame(loop);
 
-    drawCosmos(ctxBackground, vw.width, vw.height);
+    drawCosmos(ctxBackground, width, height, width / 2, height / 2);
+    drawAtmosphere(ctxAtmosphere, width, atmosphereHeight);
 
-    document.addEventListener('scroll', handleParallax);
+    document.addEventListener("scroll", handleParallax);
 
     function loop() {
       stars.forEach((cfg) => {
@@ -82,8 +56,8 @@
             }
           });
 
-          const x = getRndmNum(0, vw.width);
-          const y = getRndmNum(0, vw.height);
+          const x = getRndmNum(0, width);
+          const y = getRndmNum(0, height);
           const size =
             cfg.maxSize === 1
               ? cfg.maxSize
@@ -102,19 +76,34 @@
     }
 
     return () => {
-      document.removeEventListener('scroll', handleParallax);
+      document.removeEventListener("scroll", handleParallax);
       cancelAnimationFrame(frame);
     };
   });
 </script>
 
-<canvas bind:this={background} width={vw.width} height={vw.height} />
-<canvas bind:this={forefront} width={vw.width} height={vw.height} />
-<canvas bind:this={secondfront} width={vw.width} height={vw.height} />
-<canvas bind:this={thirdfront} width={vw.width} height={vw.height} />
+<div class="cosmos" style={`width: ${width}px, height: ${height}px`}>
+  <canvas bind:this={background} {width} {height} class="cosmos-background" />
+  <canvas bind:this={forefront} {width} {height} class="cosmos-forefront" />
+  <canvas bind:this={secondfront} {width} {height} class="cosmos-secondfront" />
+  <canvas bind:this={thirdfront} {width} {height} class="cosmos-thirdfront" />
+  <canvas bind:this={atmosphere} {width} height={atmosphereHeight} class="cosmos-atmosphere" />
+</div>
 
 <style>
-  canvas {
+  .cosmos {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cosmos-forefront,
+  .cosmos-secondfront,
+  .cosmos-thirdfront,
+  .cosmos-atmosphere {
     position: absolute;
+  }
+
+  .cosmos-atmosphere {
+    bottom: 0;
   }
 </style>
