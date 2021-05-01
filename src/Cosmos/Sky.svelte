@@ -19,9 +19,12 @@ import drawAtmosphere from "./canvas-atmosphere";
 
   const handleParallax = (): void => {
     const position = window.pageYOffset;
-    forefront.style.top = `-${position * 0.6}px`;
-    secondfront.style.top = `-${position * 0.4}px`;
-    thirdfront.style.top = `-${position * 0.2}px`;
+    const bgPosition = background.getBoundingClientRect().top;
+    if (bgPosition <= 0) {
+      forefront.style.top = `-${position * 0.6}px`;
+      secondfront.style.top = `-${position * 0.4}px`;
+      thirdfront.style.top = `-${position * 0.2}px`;
+    }
   };
 
   function getRndmNum(from: number, to: number) {
