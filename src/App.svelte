@@ -1,18 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import Sky from "./Cosmos/Sky.svelte";
-import Map from "./Map/Map.svelte";
+  import Map from "./Map/Map.svelte";
   import Planet from "./Planet/Planet.svelte";
   let name: string = "world";
-
 </script>
 
 <main>
   <h1>Hello {name}!</h1>
-  <p>
-    Visit the <a href="https://svelte.dev/tutorial">Svelte 04k01</a> to learn how
-    to build Svelte apps.
-  </p>
 </main>
 <div class="bg-cosmos">
   <Sky width={window.innerWidth} minHeight={window.innerHeight} />

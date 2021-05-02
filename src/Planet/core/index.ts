@@ -1,6 +1,6 @@
 import render from "./core"
 
-export default (root: HTMLElement): (x: boolean) => void => {
+export default (root: HTMLElement) => {
     const width = root.clientWidth;
     const height = root.clientHeight;
     

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { PlanetConfig, PlanetConfigInterface } from './config';
 import controls from './controls';
+import { MarkerOptions, placeMarker } from './markers';
 
 const renderer = new THREE.WebGLRenderer({ alpha: true });
 const scene = new THREE.Scene();
@@ -142,10 +143,9 @@ const createPlanet = function (options: typeof PlanetConfig) {
 
 const earth = createPlanet(PlanetConfig);
 
-const render = function (height: number, width: number, root: HTMLElement): (x: boolean) => void {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const render = function (height: number, width: number, root: HTMLElement) {
   let controlEnabled = false;
-
-  const setControl = (ctrl: boolean) => { controlEnabled = ctrl };
 
   renderer.setSize(width, height);
 
@@ -162,6 +162,12 @@ const render = function (height: number, width: number, root: HTMLElement): (x: 
 
   const atmosphere = earth.getObjectByName('atmosphere');
   const surface = earth.getObjectByName('surface');
+
+  const setControl = (ctrl: boolean) => { controlEnabled = ctrl };
+
+  const setMarker = (options: MarkerOptions) => { 
+    placeMarker(surface, options);
+   };
 
   const loop = () => {
     if (controlEnabled) {
@@ -183,7 +189,7 @@ const render = function (height: number, width: number, root: HTMLElement): (x: 
   root.appendChild(renderer.domElement);
   requestAnimationFrame(loop);
 
-  return setControl;
+  return [setControl, setMarker] as const;
 };
 
 export default render;
