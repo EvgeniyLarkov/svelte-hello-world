@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import Sky from "./Cosmos/Sky.svelte";
+import Map from "./Map/Map.svelte";
   import Planet from "./Planet/Planet.svelte";
   let name: string = "world";
 
@@ -17,6 +18,7 @@
   <Sky width={window.innerWidth} minHeight={window.innerHeight} />
   <Planet />
 </div>
+<Map />
 
 <style lang="scss">
   main {
