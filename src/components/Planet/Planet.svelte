@@ -1,5 +1,5 @@
 <script lang="typescript">
-  import { markers } from "src/store";
+  import { markers } from "../../store";
   import { onDestroy, onMount } from "svelte";
   import drowPlanet from "./core";
   import { MarkerOptions } from "./core/markers";

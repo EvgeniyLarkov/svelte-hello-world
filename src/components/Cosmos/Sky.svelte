@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-import drawAtmosphere from "./canvas-atmosphere";
+  import drawAtmosphere from "./canvas-atmosphere";
   import drawCosmos from "./canvas-background";
   import { stars } from "./canvas-options";
   import drawStar from "./canvas-stars";
@@ -90,7 +90,12 @@ import drawAtmosphere from "./canvas-atmosphere";
   <canvas bind:this={forefront} {width} {height} class="cosmos-forefront" />
   <canvas bind:this={secondfront} {width} {height} class="cosmos-secondfront" />
   <canvas bind:this={thirdfront} {width} {height} class="cosmos-thirdfront" />
-  <canvas bind:this={atmosphere} {width} height={atmosphereHeight} class="cosmos-atmosphere" />
+  <canvas
+    bind:this={atmosphere}
+    {width}
+    height={atmosphereHeight}
+    class="cosmos-atmosphere"
+  />
 </div>
 
 <style>

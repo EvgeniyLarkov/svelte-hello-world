@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import Sky from "./Cosmos/Sky.svelte";
-  import Map from "./Map/Map.svelte";
-  import Planet from "./Planet/Planet.svelte";
+  import Sky from "./components/Cosmos/Sky.svelte";
+  import Map from "./components/Map";
+  import Planet from "./components/Planet/Planet.svelte";
   let name: string = "world";
 </script>
 

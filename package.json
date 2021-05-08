@@ -2,7 +2,7 @@
 	"private": true,
 	"scripts": {
 		"build": "cross-env NODE_ENV=production webpack",
-		"start": "webpack serve",
+		"start": "webpack serve --mode development --hot --progress --color",
 		"prod": "serve public --listen 8080",
 		"validate": "svelte-check"
 	},

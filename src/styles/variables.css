@@ -14,7 +14,10 @@
 
   --surface: #717cb470;
   --background: #292d3e;
+
   --error: #b00020;
+  --warning: #f5ae15;
+  --success: #60f84c;
 
   --text-primary: #c7c8cc;
   --text-secondary: #676e95;

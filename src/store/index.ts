@@ -1,9 +1,9 @@
 import { LngLat } from 'mapbox-gl';
 import { writable } from 'svelte/store';
 
-interface MarkersInterface {
+export interface MarkersInterface {
     position: LngLat,
-    label: string,
+    text: string,
     author: string,
 }
 
